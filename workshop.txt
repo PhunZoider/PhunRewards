@@ -1,0 +1,4 @@
+version=1
+title=PhunRewards
+description=Give stuff to players at different intervals
+tags=Build 41

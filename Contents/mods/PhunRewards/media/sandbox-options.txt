@@ -1,0 +1,10 @@
+VERSION = 1,
+
+option PhunRewards.PhunRewards_Jalapenos
+{ 
+    type = boolean,
+    default = true,
+    page = PhunRewards,
+    translation = PhunRewards_Jalapenos 
+}
+
