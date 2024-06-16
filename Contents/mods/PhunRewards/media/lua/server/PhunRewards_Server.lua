@@ -120,7 +120,7 @@ Events.EveryHours.Add(function()
                             else
                                 -- this is a free item
                                 for i = 1, dist.qty do
-                                    --print("Adding item: " .. dist.item)
+                                    -- print("Adding item: " .. dist.item)
                                     p:getInventory():AddItem(dist.item)
                                 end
                             end
@@ -160,10 +160,10 @@ Events.EveryHours.Add(function()
                                 })
                             end
                         else
-                            --print("Not enough hours for reward: " .. dist.key .. " " .. delta .. " < " .. dist.value)
+                            -- print("Not enough hours for reward: " .. dist.key .. " " .. delta .. " < " .. dist.value)
                         end
                     else
-                        --print("Not eligible for reward: " .. dist.key)
+                        -- print("Not eligible for reward: " .. dist.key)
                     end
 
                     -- if (not rewards[k][dist.key]) or (rewards[k][dist.key] and dist.repeating) then
