@@ -110,8 +110,8 @@ Events.EveryHours.Add(function()
                             -- if the player has survived more hours than the value of the distribution
                             rewards[k][dist.key] = p:getHoursSurvived()
                             -- issue reward
-                            print("Issue reward for " .. dist.key .. " to " .. p:getUsername() .. " for " .. delta ..
-                                      " hours survived")
+                            -- print("Issue reward for " .. dist.key .. " to " .. p:getUsername() .. " for " .. delta ..
+                            --           " hours survived")
                             if PhunWallet.currencies and PhunWallet.currencies[dist.item] then
                                 -- this is a bound currency item
                                 PhunWallet:adjustWallet(p, {
@@ -120,7 +120,7 @@ Events.EveryHours.Add(function()
                             else
                                 -- this is a free item
                                 for i = 1, dist.qty do
-                                    print("Adding item: " .. dist.item)
+                                    --print("Adding item: " .. dist.item)
                                     p:getInventory():AddItem(dist.item)
                                 end
                             end
@@ -141,8 +141,8 @@ Events.EveryHours.Add(function()
                             -- if the player has survived more hours than the value of the distribution
                             rewards[k][dist.key] = hours
                             -- issue reward
-                            print("Issue reward for " .. dist.key .. " to " .. p:getUsername() .. " for " .. hours ..
-                                      " hours survived")
+                            -- print("Issue reward for " .. dist.key .. " to " .. p:getUsername() .. " for " .. hours ..
+                            --           " hours survived")
                             if PhunWallet.currencies and PhunWallet.currencies[dist.item] then
                                 -- this is a bound currency item
                                 PhunWallet:adjustWallet(p, {
@@ -150,8 +150,8 @@ Events.EveryHours.Add(function()
                                 })
                             else
                                 -- this is a free item
-                                print("Adding item: " .. dist.item .. " x " .. dist.qty .. " to " .. p:getUsername() ..
-                                          " for " .. hours .. " hours survived")
+                                -- print("Adding item: " .. dist.item .. " x " .. dist.qty .. " to " .. p:getUsername() ..
+                                --           " for " .. hours .. " hours survived")
                                 -- p:getInventory():AddItem(dist.item, dist.qty)
                                 sendServerCommand(p, PhunRewards.name, PhunRewards.commands.addReward, {
                                     playerIndex = p:getPlayerNum(),
@@ -160,10 +160,10 @@ Events.EveryHours.Add(function()
                                 })
                             end
                         else
-                            print("Not enough hours for reward: " .. dist.key .. " " .. delta .. " < " .. dist.value)
+                            --print("Not enough hours for reward: " .. dist.key .. " " .. delta .. " < " .. dist.value)
                         end
                     else
-                        print("Not eligible for reward: " .. dist.key)
+                        --print("Not eligible for reward: " .. dist.key)
                     end
 
                     -- if (not rewards[k][dist.key]) or (rewards[k][dist.key] and dist.repeating) then

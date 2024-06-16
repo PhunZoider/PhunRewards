@@ -4,3 +4,4 @@ id=PhunRewards
 authors=UburGeek
 description=Give stuff to players at different intervals
 poster=poster.png
+require=PhunTools
