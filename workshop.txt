@@ -1,4 +1,6 @@
 version=1
+id=3270426719
 title=PhunRewards
 description=Give stuff to players at different intervals
 tags=Build 41
+visibility=public

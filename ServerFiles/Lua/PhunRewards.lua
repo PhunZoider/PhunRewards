@@ -1,15 +1,5 @@
 return {
-    current = {{
-        hours = 3,
-        repeating = true,
-        item = "PhunMart.CheeseToken",
-        qty = 1
-    }, {
-        hours = 1,
-        kills = 3,
-        item = "PhunMart.SilverDollar",
-        qty = 1
-    }},
+    current = {},
     total = {{
         hours = 168,
         item = "PhunMart.TraiterToken",
@@ -43,22 +33,22 @@ return {
         zeds = {
             items = {{
                 item = "PhunMart.SilverDollar",
-                chance = 30,
+                chance = 5,
                 qty = {
                     min = 1,
                     max = 3
                 }
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 10,
+                chance = 1,
                 qty = 1,
                 zones = {
                     difficulty = 1
                 }
             }, {
                 item = "PhunMart.TraiterToken",
-                chance = 10,
-                qty = 2,
+                chance = 0.5,
+                qty = 1,
                 zones = {
                     keys = {"WestPoint"}
                 }
@@ -67,21 +57,21 @@ return {
         sprinters = {
             items = {{
                 item = "PhunMart.SilverDollar",
-                chance = 50,
+                chance = 6,
                 qty = {
                     min = 1,
                     max = 3
                 }
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 30,
+                chance = 5,
                 qty = {
                     min = 1,
                     max = 2
                 }
             }, {
                 item = "PhunMart.TraiterToken",
-                chance = 10,
+                chance = 3,
                 qty = 1
             }}
 
