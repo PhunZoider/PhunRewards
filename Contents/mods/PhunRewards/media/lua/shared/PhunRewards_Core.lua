@@ -5,14 +5,17 @@ PhunRewards = {
         dataLoaded = "dataLoaded",
         reload = "reload",
         requestData = "requestData",
-        addReward = "addReward",
+        addReward = "addReward"
     },
     players = {},
+    playersModified = 0,
+    playersSaved = 0,
+    zoneInfo = {},
     distributions = {},
     events = {
         OnPhunRewardsChanged = "OnPhunRewardsChanged",
         OnPhunRewardsCurrenciesUpdated = "OnPhunRewardsCurrenciesUpdated",
-        OnPhunRewardsInied = "OnPhunRewardsInied",
+        OnPhunRewardsInied = "OnPhunRewardsInied"
     }
 }
 
@@ -35,9 +38,6 @@ function PhunRewards:getPlayerData(playerObj)
         end
         if not self.players[key] then
             self.players[key] = {}
-        end
-        if not self.players[key].rewards then
-            self.players[key].rewards = {}
         end
         return self.players[key]
     end
