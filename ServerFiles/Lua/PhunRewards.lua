@@ -34,45 +34,43 @@ return {
             items = {{
                 item = "PhunMart.SilverDollar",
                 chance = 5,
-                qty = {
-                    min = 1,
-                    max = 3
-                }
+                qty = 1
             }, {
                 item = "PhunMart.CheeseToken",
                 chance = 1,
                 qty = 1,
-                zones = {
-                    difficulty = 1
-                }
+                zones = 1
             }, {
                 item = "PhunMart.TraiterToken",
                 chance = 0.5,
                 qty = 1,
                 zones = {
-                    keys = {"WestPoint"}
+                    difficulty = 4
                 }
             }}
         },
         sprinters = {
             items = {{
                 item = "PhunMart.SilverDollar",
-                chance = 6,
+                chance = 5,
                 qty = {
                     min = 1,
                     max = 3
                 }
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 5,
+                chance = 3,
                 qty = {
                     min = 1,
                     max = 2
                 }
             }, {
                 item = "PhunMart.TraiterToken",
-                chance = 3,
-                qty = 1
+                chance = 1,
+                qty = 1,
+                zones = {
+                    difficulty = 4
+                }
             }}
 
         }
