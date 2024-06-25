@@ -1,31 +1,45 @@
 return {
     current = {},
     total = {{
-        hours = 168,
+        hours = 100,
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 336,
+        hours = 200,
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 504,
+        hours = 300,
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 668,
+        hours = 400,
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 836,
+        hours = 500,
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 1004,
+        hours = 600,
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 1172,
+        hours = 700,
+        item = "PhunMart.TraiterToken",
+        qty = 1
+    }, {
+        hours = 700,
+        item = "PhunMart.TraiterToken",
+        qty = 1
+
+    }, {
+        hours = 800,
+        item = "PhunMart.TraiterToken",
+        qty = 1
+
+    }, {
+        hours = 900,
         item = "PhunMart.TraiterToken",
         qty = 1
     }},
@@ -66,10 +80,20 @@ return {
                 }
             }, {
                 item = "PhunMart.TraiterToken",
-                chance = 1,
+                chance = 3,
                 qty = 1,
                 zones = {
                     difficulty = 4
+                }
+            }, {
+                item = "PhunMart.TraiterToken",
+                chance = 1,
+                qty = 1,
+                zones = {
+                    difficulty = {
+                        min = 0,
+                        max = 3
+                    }
                 }
             }}
 

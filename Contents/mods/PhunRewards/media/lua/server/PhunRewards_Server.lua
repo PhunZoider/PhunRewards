@@ -255,7 +255,8 @@ Events.EveryTenMinutes.Add(function()
 end)
 
 Events[PhunRewards.events.OnPhunRewardsInied].Add(function()
-    local playerData = PhunTools:loadTable(PhunRewards.name .. "_Players.lua") or {}
+    -- local playerData = PhunTools:loadTable(PhunRewards.name .. "_Players.lua") or {}
+    local playerData = ModData.get(PhunRewards.name .. "_Players") or {}
     PhunRewards.players = playerData
     PhunRewards:reload()
 end)
