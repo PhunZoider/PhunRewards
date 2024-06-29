@@ -176,30 +176,33 @@ function PhunRewards:doHourly()
                 local lastHour = (rewarded[v.key] or {}).hours or 0
                 if lastHour == 0 or v.repeating then
                     if ((pstats[rv].hours or 0) - lastHour) >= v.hours and (pstats[rv].kills or 0) >= v.kills then
-                        rewarded[v.key] = {
-                            hours = pstats[rv].hours,
-                            kills = pstats[rv].kills,
-                            age = getGameTime():getWorldAgeHours(),
-                            when = getTimestamp(),
-                            method = "item"
-                        }
+                        if not rewarded[v.key] then
+                            rewarded[v.key] = {
+                                hours = pstats[rv].hours,
+                                kills = pstats[rv].kills,
+                                age = getGameTime():getWorldAgeHours(),
+                                when = getTimestamp(),
+                                method = "item"
+                            }
 
-                        local qty = ZombRand(v.qty.min, v.qty.max)
-                        PhunTools:addLogEntry("PhunRewards", p:getUsername(), v.key, v.item, qty)
-                        self.playersModified = getTimestamp()
+                            local qty = ZombRand(v.qty.min, v.qty.max)
+                            PhunTools:addLogEntry("PhunRewards", p:getUsername(), v.key, v.item, qty)
+                            self.playersModified = getTimestamp()
 
-                        if PhunWallet.currencies and PhunWallet.currencies[v.item] then
-                            rewarded[v.key].method = "currency"
-                            -- this is a currency item
-                            PhunWallet:adjustWallet(p, {
-                                [v.item] = qty
-                            })
-                        else
-                            sendServerCommand(p, self.name, self.commands.addReward, {
-                                playerIndex = p:getPlayerNum(),
-                                item = v.item,
-                                qty = qty
-                            })
+                            if PhunWallet.currencies and PhunWallet.currencies[v.item] then
+                                rewarded[v.key].method = "currency"
+                                -- this is a currency item
+                                PhunWallet:adjustWallet(p, {
+                                    [v.item] = qty
+                                })
+                            else
+                                sendServerCommand(p, self.name, self.commands.addReward, {
+                                    playerIndex = p:getPlayerNum(),
+                                    item = v.item,
+                                    qty = qty
+                                })
+                            end
+
                         end
 
                     end
