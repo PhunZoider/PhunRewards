@@ -45,7 +45,7 @@ local function CheckZedSpecialDrops(zombie)
             end
         end
     end
-    zombie:getModData().PhunRunners = nil
+    -- zombie:getModData().PhunRunners = nil
 end
 
 local function setup()

@@ -171,6 +171,7 @@ function PhunRewards:doHourly()
         local pstats = PhunStats:getPlayerData(p)
 
         local rewarded = self:getPlayerData(p)
+
         for _, rv in pairs(rewards) do
             for _, v in pairs(self.distributions[rv] or {}) do
                 local lastHour = (rewarded[v.key] or {}).hours or 0
@@ -214,7 +215,9 @@ end
 
 function PhunRewards:savePlayers()
     if self.playersModified > self.playersSaved then
-        PhunTools:saveTable(self.name .. "_Players.lua", self.players)
+        PhunTools:saveTable(self.name .. "_Players.lua", {
+            data = self.players
+        })
         self.playersSaved = getTimestamp()
     end
 
@@ -259,8 +262,7 @@ end)
 
 Events[PhunRewards.events.OnPhunRewardsInied].Add(function()
     -- local playerData = PhunTools:loadTable(PhunRewards.name .. "_Players.lua") or {}
-    local playerData = ModData.get(PhunRewards.name .. "_Players") or {}
-    PhunRewards.players = playerData
+    PhunRewards.players = ModData.getOrCreate(PhunRewards.name .. "_Players")
     PhunRewards:reload()
 end)
 

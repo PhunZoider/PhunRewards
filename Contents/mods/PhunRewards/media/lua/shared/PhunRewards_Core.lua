@@ -46,6 +46,7 @@ end
 function PhunRewards:ini()
     if not self.inied then
         self.inied = true
+
         triggerEvent(self.events.OnPhunRewardsInied)
     end
 
