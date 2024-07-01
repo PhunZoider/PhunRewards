@@ -54,13 +54,6 @@ return {
                 chance = 1,
                 qty = 1,
                 zones = 1
-            }, {
-                item = "PhunMart.TraiterToken",
-                chance = 0.5,
-                qty = 1,
-                zones = {
-                    difficulty = 4
-                }
             }}
         },
         sprinters = {
@@ -73,30 +66,12 @@ return {
                 }
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 3,
+                chance = 5,
                 qty = {
                     min = 1,
-                    max = 2
-                }
-            }, {
-                item = "PhunMart.TraiterToken",
-                chance = 3,
-                qty = 1,
-                zones = {
-                    difficulty = 4
-                }
-            }, {
-                item = "PhunMart.TraiterToken",
-                chance = 1,
-                qty = 1,
-                zones = {
-                    difficulty = {
-                        min = 0,
-                        max = 3
-                    }
+                    max = 4
                 }
             }}
-
         }
     }
 }
