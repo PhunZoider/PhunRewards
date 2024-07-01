@@ -29,17 +29,17 @@ return {
         item = "PhunMart.TraiterToken",
         qty = 1
     }, {
-        hours = 700,
-        item = "PhunMart.TraiterToken",
-        qty = 1
-
-    }, {
         hours = 800,
         item = "PhunMart.TraiterToken",
         qty = 1
 
     }, {
         hours = 900,
+        item = "PhunMart.TraiterToken",
+        qty = 1
+
+    }, {
+        hours = 1000,
         item = "PhunMart.TraiterToken",
         qty = 1
     }},
