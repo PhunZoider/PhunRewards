@@ -1,5 +1,10 @@
 return {
     current = {},
+    charStats = {{
+        stat = "runDistance",
+        value = 30,
+        trait = "Jogger"
+    }},
     total = {{
         hours = 100,
         item = "PhunMart.TraiterToken",

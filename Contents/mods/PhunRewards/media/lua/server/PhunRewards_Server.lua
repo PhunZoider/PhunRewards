@@ -102,6 +102,7 @@ end
 local function buildDistributions(data)
     local result = {
         characterHours = {},
+        charStats = {},
         hours = {},
         drops = {
             zeds = {
@@ -141,6 +142,13 @@ local function buildDistributions(data)
             end
         end
     end
+
+    for i, v in ipairs(data.charStats or {}) do
+        v.key = v.key or "CHARSTAT:" .. tostring(i)
+        v.type = v.type or "CHARSTAT"
+        result.charStats[v.key] = v
+    end
+
     return result
 end
 
@@ -163,7 +171,7 @@ end
 function PhunRewards:doHourly()
     local stats = PhunStats.players
 
-    local rewards = {"current", "total"}
+    local rewards = {"current", "total", "charStats"}
 
     for i = 1, getOnlinePlayers():size() do
 
@@ -174,36 +182,60 @@ function PhunRewards:doHourly()
 
         for _, rv in pairs(rewards) do
             for _, v in pairs(self.distributions[rv] or {}) do
-                local lastHour = (rewarded[v.key] or {}).hours or 0
+
                 if not rewarded[v.key] or v.repeating then
-                    if (pstats[rv].hours or 0) >= v.hours and (pstats[rv].kills or 0) >= (v.kills or 0) then
 
-                        rewarded[v.key] = {
-                            hours = pstats[rv].hours,
-                            kills = pstats[rv].kills,
-                            age = getGameTime():getWorldAgeHours(),
-                            when = getTimestamp(),
-                            method = "item"
-                        }
+                    if rv == "charStats" then
+                        local currentValue = pstats.current[v.stat] or 0
+                        if currentValue > v.value then
 
-                        local qty = ZombRand(v.qty.min, v.qty.max)
-                        PhunTools:addLogEntry("PhunRewards", p:getUsername(), v.key, v.item, qty)
-                        self.playersModified = getTimestamp()
-
-                        if PhunWallet.currencies and PhunWallet.currencies[v.item] then
-                            rewarded[v.key].method = "currency"
-                            -- this is a currency item
-                            PhunWallet:adjustWallet(p, {
-                                [v.item] = qty
-                            })
-                        else
-                            sendServerCommand(p, self.name, self.commands.addReward, {
-                                playerIndex = p:getPlayerNum(),
-                                item = v.item,
-                                qty = qty
-                            })
+                            if v.trait then
+                                rewarded[v.key] = {
+                                    stat = v.stat,
+                                    trait = v.trait,
+                                    value = currentValue,
+                                    age = getGameTime():getWorldAgeHours(),
+                                    when = getTimestamp(),
+                                    method = "trait"
+                                }
+                                self.playersModified = getTimestamp()
+                                PhunTools:addLogEntry("PhunRewards:" .. v.key, p:getUsername(), v.trait, 1)
+                                sendServerCommand(p, self.name, self.commands.addReward, {
+                                    playerIndex = p:getPlayerNum(),
+                                    trait = v.trait
+                                })
+                            end
                         end
+                    else
+                        if (pstats[rv].hours or 0) >= v.hours and (pstats[rv].kills or 0) >= (v.kills or 0) then
 
+                            rewarded[v.key] = {
+                                hours = pstats[rv].hours,
+                                kills = pstats[rv].kills,
+                                age = getGameTime():getWorldAgeHours(),
+                                when = getTimestamp(),
+                                method = "item"
+                            }
+
+                            local qty = ZombRand(v.qty.min, v.qty.max)
+                            PhunTools:addLogEntry("PhunRewards:" .. v.key, p:getUsername(), v.item, qty)
+                            self.playersModified = getTimestamp()
+
+                            if PhunWallet.currencies and PhunWallet.currencies[v.item] then
+                                rewarded[v.key].method = "currency"
+                                -- this is a currency item
+                                PhunWallet:adjustWallet(p, {
+                                    [v.item] = qty
+                                })
+                            else
+                                sendServerCommand(p, self.name, self.commands.addReward, {
+                                    playerIndex = p:getPlayerNum(),
+                                    item = v.item,
+                                    qty = qty
+                                })
+                            end
+
+                        end
                     end
                 end
             end
@@ -256,6 +288,20 @@ end
 
 Events.EveryTenMinutes.Add(function()
     PhunRewards:savePlayers()
+end)
+
+Events.OnCharacterDeath.Add(function(playerObj)
+    if instanceof(playerObj, "IsoPlayer") then
+        -- a player died
+        local rewarded = PhunStats:getPlayerData(playerObj)
+        for key in pairs(rewarded) do
+            if key:sub(1, 9) == "CHARSTAT:" then
+                rewarded[key] = nil
+            elseif string.upper(rewarded[key].type or "") == "CHARSTAT" then
+                rewarded[key] = nil
+            end
+        end
+    end
 end)
 
 Events[PhunRewards.events.OnPhunRewardsInied].Add(function()

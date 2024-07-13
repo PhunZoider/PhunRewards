@@ -60,7 +60,13 @@ local Commands = {}
 
 Commands[PhunRewards.commands.addReward] = function(arguments)
     local player = getSpecificPlayer(arguments.playerIndex)
-    player:getInventory():AddItem(arguments.item, arguments.qty)
+    if arguments.trait then
+        local trait = TraitFactory.getTrait(arguments.trait)
+        player:getTraits():add(trait:getType())
+    else
+        player:getInventory():AddItem(arguments.item, arguments.qty)
+    end
+
 end
 
 Commands[PhunRewards.commands.requestData] = function(arguments)
