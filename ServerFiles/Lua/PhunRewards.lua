@@ -12,11 +12,11 @@ return {
     }, {
         hours = 200,
         item = "PhunMart.TraiterToken",
-        qty = 1
+        qty = 0
     }, {
         hours = 300,
         item = "PhunMart.TraiterToken",
-        qty = 1
+        qty = 0
     }, {
         hours = 400,
         item = "PhunMart.TraiterToken",
@@ -24,15 +24,15 @@ return {
     }, {
         hours = 500,
         item = "PhunMart.TraiterToken",
-        qty = 1
+        qty = 0
     }, {
         hours = 600,
         item = "PhunMart.TraiterToken",
-        qty = 1
+        qty = 0
     }, {
         hours = 700,
         item = "PhunMart.TraiterToken",
-        qty = 1
+        qty = 0
     }, {
         hours = 800,
         item = "PhunMart.TraiterToken",
@@ -41,7 +41,7 @@ return {
     }, {
         hours = 900,
         item = "PhunMart.TraiterToken",
-        qty = 1
+        qty = 0
 
     }, {
         hours = 1000,
