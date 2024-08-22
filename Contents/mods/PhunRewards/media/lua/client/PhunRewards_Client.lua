@@ -6,12 +6,24 @@ local PhunZones = PhunZones
 
 local function CheckZedSpecialDrops(zombie)
 
-    local wasSprinter = zombie:getModData().isSprinter == true or
-                            (zombie:getModData().PhunRunners and zombie:getModData().PhunRunners.sprinting == true)
+    local zData = zombie:getModData()
+
+    local wasSprinter = zData.PhunRunners and zData.PhunRunners.sprinting == true
+    local wasBandit = zData.PhunRunners and zData.PhunRunners.isBandit == true
 
     local pr = PhunRewards
-    local distribution = pr.distributions or {}
-    local reward = wasSprinter and distribution.drops.sprinters or distribution.drops.zeds or nil
+    local distribution = pr.distributions or {
+        drops = {}
+    }
+    local drops = distribution.drops or {}
+    local reward = nil
+    if wasBandit then
+        reward = drops.bandits
+    elseif wasSprinter then
+        reward = drops.sprinters
+    else
+        reward = drops.zeds
+    end
     if reward == nil or not reward.items then
         return
     end

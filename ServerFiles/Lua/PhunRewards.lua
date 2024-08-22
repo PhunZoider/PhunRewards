@@ -61,6 +61,23 @@ return {
                 zones = 1
             }}
         },
+        bandits = {
+            items = {{
+                item = "PhunMart.SilverDollar",
+                chance = 5,
+                qty = {
+                    min = 1,
+                    max = 3
+                }
+            }, {
+                item = "PhunMart.CheeseToken",
+                chance = 5,
+                qty = {
+                    min = 1,
+                    max = 4
+                }
+            }}
+        },
         sprinters = {
             items = {{
                 item = "PhunMart.SilverDollar",
