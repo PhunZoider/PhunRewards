@@ -50,7 +50,7 @@ local function CheckZedSpecialDrops(zombie)
                 end
             end
             if roll then
-                local chance = ZombRand(1000) + 1
+                local chance = ZombRand(10000) + 1
                 if chance < v.chance then
                     zombie:getInventory():AddItems(v.item, ZombRand(v.qty.min, v.qty.max))
                 end

@@ -176,7 +176,7 @@ function PhunRewards:doHourly()
     for i = 1, getOnlinePlayers():size() do
 
         local p = getOnlinePlayers():get(i - 1)
-        local pstats = PhunStats:getPlayerData(p)
+        local pstats = PhunStats:getData(p)
 
         local rewarded = self:getPlayerData(p)
 
@@ -277,7 +277,7 @@ Events.OnInitGlobalModData.Add(function()
 end)
 
 if PhunStats then
-    Events[PhunStats.events.OnPhunStatsInied].Add(function()
+    Events[PhunStats.events.OnPhunStatsInied or PhunStats.events.OnReady].Add(function()
 
         Events.EveryHours.Add(function()
             PhunRewards:doHourly()
@@ -293,7 +293,7 @@ end)
 Events.OnCharacterDeath.Add(function(playerObj)
     if instanceof(playerObj, "IsoPlayer") then
         -- a player died
-        local rewarded = PhunStats:getPlayerData(playerObj)
+        local rewarded = PhunStats:getData(playerObj)
         for key in pairs(rewarded) do
             if key:sub(1, 9) == "CHARSTAT:" then
                 rewarded[key] = nil

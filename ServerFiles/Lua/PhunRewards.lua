@@ -52,26 +52,30 @@ return {
         zeds = {
             items = {{
                 item = "PhunMart.SilverDollar",
-                chance = 5,
+                chance = 30,
                 qty = 1
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 1,
+                chance = 10,
                 qty = 1,
                 zones = 1
+            }, {
+                item = "PhunSpawn.Vent Clue",
+                chance = 5,
+                qty = 1
             }}
         },
         bandits = {
             items = {{
                 item = "PhunMart.SilverDollar",
-                chance = 5,
+                chance = 7,
                 qty = {
                     min = 1,
                     max = 3
                 }
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 5,
+                chance = 3,
                 qty = {
                     min = 1,
                     max = 4
@@ -81,18 +85,22 @@ return {
         sprinters = {
             items = {{
                 item = "PhunMart.SilverDollar",
-                chance = 5,
+                chance = 30,
                 qty = {
                     min = 1,
                     max = 3
                 }
             }, {
                 item = "PhunMart.CheeseToken",
-                chance = 5,
+                chance = 15,
                 qty = {
                     min = 1,
                     max = 4
                 }
+            }, {
+                item = "PhunSpawn.Vent Clue",
+                chance = 10,
+                qty = 1
             }}
         }
     }
