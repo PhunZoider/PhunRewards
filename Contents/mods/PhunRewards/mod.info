@@ -1,7 +1,6 @@
-title=PhunRewardsS7
-name=PhunRewardsS7
-id=PhunRewardsS7
+title=PhunRewards
+name=PhunRewards
+id=phunrewards
 authors=UburGeek
 description=Give stuff to players at different intervals
 poster=poster.png
-require=PhunToolsS7,PhunStatsS7

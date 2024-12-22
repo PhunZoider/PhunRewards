@@ -1,4 +1,4 @@
-if not isClient() then
+if isServer() then
     return
 end
 local PhunRewards = PhunRewards
