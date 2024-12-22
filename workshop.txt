@@ -1,12 +1,9 @@
 version=1
-id=3389521349
-title=PhunWipe
-description=description=This mod was created to reset player maps and symbols when we wiped the server while preserving their maps jumping between our servers.
-description=description=
-description=description=Note that if added to an existing save that it will wipe any existing players maps the first time they join 
-description=description=
-description=description=There are options to make the wipe per-character and/or to allow them to keep symbols or not.
-description=description=
-description=description=[url=https://discord.gg/v2USyAtP6q]PhunZoid discord[/url]
+id=3389519011
+title=PhunRewards
+description=Give stuff to players at different intervals
+description=
+description=beta testing! Currently play testing and balance tweaking on [url=https://discord.gg/v2USyAtP6q]PhunZoid Server[/url]
+description=[url=https://github.com/PhunZoider/PhunRewards]Repo and more info[/url]
 tags=
 visibility=unlisted
