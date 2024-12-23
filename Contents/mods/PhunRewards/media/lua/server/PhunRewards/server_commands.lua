@@ -2,9 +2,6 @@ if isClient() then
     return
 end
 local PR = PhunRewards
-
-local Commands = {}
-
 local Commands = {}
 
 Commands[PR.commands.requestData] = function(playerObj)

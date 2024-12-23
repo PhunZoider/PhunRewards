@@ -1,7 +1,7 @@
 if isServer() then
     return
 end
-local Commands = require "PhunRewards/server_commands"
+local Commands = require "PhunRewards/client_commands"
 local PR = PhunRewards
 local PZ = PhunZones
 

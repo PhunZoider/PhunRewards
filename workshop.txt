@@ -1,5 +1,6 @@
 version=1
 title=PhunRewards
+id=3389519011
 description=Give stuff to players at different intervals
 description=
 description=beta testing! Currently play testing and balance tweaking on [url=https://discord.gg/v2USyAtP6q]PhunZoid Server[/url]
