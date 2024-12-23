@@ -1,5 +1,4 @@
 version=1
-id=3389519011
 title=PhunRewards
 description=Give stuff to players at different intervals
 description=

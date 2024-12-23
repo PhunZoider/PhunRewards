@@ -4,14 +4,41 @@
         "commands": [
             {
                 "match": ".*",
-                "isAsync": true,
-                "cmd": "xcopy ${workspaceFolder}\\Contents ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunRewards\\Contents /Y /I /E /F /EXCLUDE:xclude"
+                "cmd": "rmdir /S /Q ${env.USERPROFILE}\\Zomboid\\mods\\PhunRewards 2>nul"
             },
             {
-                "match": "Contents\\.*",
-                "isAsync": true,
-                "cmd": "xcopy ${workspaceFolder}\\Contents\\mods ${env.USERPROFILE}\\Zomboid\\mods /Y /I /E /F"
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder}\\Contents\\mods ${env.USERPROFILE}\\Zomboid\\mods /Y /I /E /F /EXCLUDE:xclude"
             },
+            {
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder}\\Contents\\mods\\PhunRewards\\media ${env.USERPROFILE}\\Zomboid\\mods\\PhunRewards\\42\\media /Y /I /E /F"
+            },
+            {
+                "match": ".*",
+                "cmd": "copy ${workspaceFolder}\\Contents\\mods\\PhunRewards\\mod.info ${env.USERPROFILE}\\Zomboid\\mods\\PhunRewards\\42\\mod.info /Y"
+            },
+            {
+                "match": ".*",
+                "cmd": "copy ${workspaceFolder}\\Contents\\mods\\PhunRewards\\poster.png ${env.USERPROFILE}\\Zomboid\\mods\\PhunRewards\\42\\poster.png /Y"
+            },
+            {
+                "match": ".*",
+                "cmd": "copy ${workspaceFolder}\\Contents\\mods\\PhunRewards\\icon.png ${env.USERPROFILE}\\Zomboid\\mods\\PhunRewards\\42\\icon.png /Y"
+            },
+            {
+                "match": ".*",
+                "cmd": "rmdir /S /Q ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunRewards 2>nul"
+            },
+            {
+                "match": ".*",
+                "cmd": "xcopy ${workspaceFolder} ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunRewards /Y /I /E /F /EXCLUDE:xclude"
+            },
+            {
+                "match": ".*",
+                "cmd": "${env.USERPROFILE}\\Zomboid\\mods\\PhunRewards ${env.USERPROFILE}\\Zomboid\\Workshop\\PhunRewards /Y /I /E /F"
+            }, 
+            
         ]
     },
     "editor.formatOnSave": true,

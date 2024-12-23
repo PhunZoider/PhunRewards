@@ -1,10 +1,10 @@
 if isClient() then
     return
 end
-local PhunRewards = PhunRewards
-local PhunStats = PhunStats
-local PhunWallet = PhunWallet
-local gameTime = getGameTime()
+local files = require "PhunRewards/files"
+local PR = PhunRewards
+local PS = PhunStats
+local PW = PhunWallet
 
 local function formatOption(data)
 
@@ -152,36 +152,32 @@ local function buildDistributions(data)
     return result
 end
 
-function PhunRewards:reload()
+function PR:reload()
 
-    local data = PhunTools:loadTable("PhunRewards.lua")
+    local data = files:loadTable("PhunRewards.lua")
     local distributions = buildDistributions(data)
     if distributions then
-        self.distributions = distributions
-    end
-
-end
-
-function PhunRewards:export()
-    if PhunTools then
-        PhunTools:saveTable("PhunRewards.lua", self.currencies)
+        PR.distributions = distributions
     end
 end
 
-function PhunRewards:doHourly()
-    local stats = PhunStats.players
+function PR:export()
+    files:saveTable("PhunRewards.lua", PR.currencies)
+end
+
+function PR:doHourly()
 
     local rewards = {"current", "total", "charStats"}
 
     for i = 1, getOnlinePlayers():size() do
 
         local p = getOnlinePlayers():get(i - 1)
-        local pstats = PhunStats:getData(p)
+        local pstats = PS:getData(p)
 
-        local rewarded = self:getPlayerData(p)
+        local rewarded = PR:getPlayerData(p)
 
         for _, rv in pairs(rewards) do
-            for _, v in pairs(self.distributions[rv] or {}) do
+            for _, v in pairs(PR.distributions[rv] or {}) do
 
                 if not rewarded[v.key] or v.repeating then
 
@@ -198,9 +194,9 @@ function PhunRewards:doHourly()
                                     when = getTimestamp(),
                                     method = "trait"
                                 }
-                                self.playersModified = getTimestamp()
-                                PhunTools:addLogEntry("PhunRewards:" .. v.key, p:getUsername(), v.trait, 1)
-                                sendServerCommand(p, self.name, self.commands.addReward, {
+                                PR.playersModified = getTimestamp()
+                                files:addLogEntry("Phun.log", "PhunRewards:" .. v.key, p:getUsername(), v.trait, 1)
+                                sendServerCommand(p, PR.name, PR.commands.addReward, {
                                     playerIndex = p:getPlayerNum(),
                                     trait = v.trait
                                 })
@@ -218,17 +214,17 @@ function PhunRewards:doHourly()
                             }
 
                             local qty = ZombRand(v.qty.min, v.qty.max)
-                            PhunTools:addLogEntry("PhunRewards:" .. v.key, p:getUsername(), v.item, qty)
-                            self.playersModified = getTimestamp()
+                            files:addLogEntry("Phun.log", "PhunRewards:" .. v.key, p:getUsername(), v.item, qty)
+                            PR.playersModified = getTimestamp()
 
-                            if PhunWallet.currencies and PhunWallet.currencies[v.item] then
+                            if PW.currencies and PW.currencies[v.item] then
                                 rewarded[v.key].method = "currency"
                                 -- this is a currency item
-                                PhunWallet:adjustWallet(p, {
+                                PW:adjustWallet(p, {
                                     [v.item] = qty
                                 })
                             else
-                                sendServerCommand(p, self.name, self.commands.addReward, {
+                                sendServerCommand(p, PR.name, PR.commands.addReward, {
                                     playerIndex = p:getPlayerNum(),
                                     item = v.item,
                                     qty = qty
@@ -243,74 +239,13 @@ function PhunRewards:doHourly()
     end
 end
 
-function PhunRewards:savePlayers()
-    if self.playersModified > self.playersSaved then
-        PhunTools:saveTable(self.name .. "_Players.lua", {
-            data = self.players
+function PR:savePlayers()
+    if PR.playersModified > PR.playersSaved then
+        files:saveTable(PR.name .. "_Players.lua", {
+            data = PR.players
         })
-        self.playersSaved = getTimestamp()
+        PR.playersSaved = getTimestamp()
     end
 
 end
 
-local Commands = {}
-
-Commands[PhunRewards.commands.requestData] = function(playerObj)
-    sendServerCommand(playerObj, PhunRewards.name, PhunRewards.commands.requestData, {
-        playerIndex = playerObj:getPlayerNum(),
-        data = PhunRewards.distributions.drops,
-        history = PhunRewards:getPlayerData(playerObj)
-    })
-end
-
-Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
-    if module == PhunRewards.name and Commands[command] then
-        Commands[command](playerObj, arguments)
-    end
-end)
-Events.OnGameStart.Add(function()
-    PhunRewards:ini()
-end)
-
-Events.OnInitGlobalModData.Add(function()
-    PhunRewards:ini()
-end)
-
-if PhunStats then
-    Events[PhunStats.events.OnPhunStatsInied or PhunStats.events.OnReady].Add(function()
-
-        Events.EveryHours.Add(function()
-            PhunRewards:doHourly()
-        end)
-
-    end)
-end
-
-Events.EveryTenMinutes.Add(function()
-    PhunRewards:savePlayers()
-end)
-
-Events.OnCharacterDeath.Add(function(playerObj)
-    if instanceof(playerObj, "IsoPlayer") then
-        -- a player died
-        local rewarded = PhunStats:getData(playerObj)
-        for key in pairs(rewarded) do
-            if key:sub(1, 9) == "CHARSTAT:" then
-                rewarded[key] = nil
-            elseif string.upper(rewarded[key].type or "") == "CHARSTAT" then
-                rewarded[key] = nil
-            end
-        end
-    end
-end)
-
-Events[PhunRewards.events.OnPhunRewardsInied].Add(function()
-    -- local playerData = PhunTools:loadTable(PhunRewards.name .. "_Players.lua") or {}
-    PhunRewards.players = ModData.getOrCreate(PhunRewards.name .. "_Players")
-    PhunRewards:reload()
-end)
-
--- Add a hook to save player data when the server goes empty
-PhunTools:RunOnceWhenServerEmpties(PhunRewards.name, function()
-    PhunRewards:savePlayers()
-end)
