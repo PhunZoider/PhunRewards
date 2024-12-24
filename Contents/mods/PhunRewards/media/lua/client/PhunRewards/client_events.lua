@@ -15,6 +15,7 @@ Events.OnTick.Add(setup)
 
 Events.OnServerCommand.Add(function(module, command, arguments)
     if module == PR.name and Commands[command] then
+        print("PhunRewards: Received command ", command)
         Commands[command](arguments)
     end
 end)

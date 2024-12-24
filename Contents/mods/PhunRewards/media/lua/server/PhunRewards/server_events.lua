@@ -28,6 +28,7 @@ end)
 
 Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     if module == PR.name and Commands[command] then
+        print("PhunRewards: Received command ", command)
         Commands[command](playerObj, arguments)
     end
 end)

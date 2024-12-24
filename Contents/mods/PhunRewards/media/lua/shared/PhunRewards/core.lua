@@ -26,16 +26,16 @@ for _, event in pairs(Core.events) do
 end
 
 function Core:debug(...)
-    if self.settings.debug then
-        local args = {...}
-        for i, v in ipairs(args) do
-            if type(v) == "table" then
-                self:printTable(v)
-            else
-                print(tostring(v))
-            end
+
+    local args = {...}
+    for i, v in ipairs(args) do
+        if type(v) == "table" then
+            self:printTable(v)
+        else
+            print(tostring(v))
         end
     end
+
 end
 
 function Core:printTable(t, indent)
@@ -52,8 +52,12 @@ end
 
 function Core:ini()
     if not self.inied then
+        print("PhunRewards: Inied")
         self.inied = true
         self.players = ModData.getOrCreate(self.name .. "_Players")
+        if not isClient() then
+            self:reload()
+        end
         triggerEvent(self.events.OnPhunRewardsInied)
     end
 

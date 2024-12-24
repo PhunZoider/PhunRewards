@@ -28,11 +28,13 @@ function PR:checkZedSpecialDrops(zombie)
     end
     local zoneDifficulty = 0
     local zoneName = nil
+    local rads = 0
 
     if PZ and PZ.getLocation then
-        local zoneInfo = PZ:getLocation(zombie)
+        local zoneInfo = PZ:getLocation(zombie) or {}
         zoneDifficulty = zoneInfo.difficulty or 0
-        zoneName = zoneInfo.key
+        zoneName = zoneInfo.region or nil
+        rads = zoneInfo.rads or 0
     end
 
     for k, v in pairs(reward.items or {}) do
@@ -50,7 +52,17 @@ function PR:checkZedSpecialDrops(zombie)
             if roll then
                 local chance = ZombRand(10000) + 1
                 if chance < v.chance then
-                    zombie:getInventory():AddItems(v.item, ZombRand(v.qty.min, v.qty.max))
+                    local radIncrease = 0
+                    local min = v.qty.min
+                    local max = v.qty.max
+                    if rads then
+                        radIncrease = math.floor((v.qty.min + (rads / 100) * v.qty.min) + .5)
+                        min = min + radIncrease
+                        max = max + radIncrease
+                    end
+                    print("min=" .. min .. ", max = " .. max .. " radIncrease: " .. radIncrease)
+                    local qty = ZombRand(min, max)
+                    zombie:getInventory():AddItems(v.item, qty)
                 end
             end
         end

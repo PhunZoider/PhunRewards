@@ -153,7 +153,7 @@ local function buildDistributions(data)
 end
 
 function PR:reload()
-
+    print("PhunRewards: Reloading")
     local data = files:loadTable("PhunRewards.lua")
     local distributions = buildDistributions(data)
     if distributions then
