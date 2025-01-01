@@ -217,7 +217,7 @@ function PR:doHourly()
                             files:addLogEntry("Phun.log", "PhunRewards:" .. v.key, p:getUsername(), v.item, qty)
                             PR.playersModified = getTimestamp()
 
-                            if PW.currencies and PW.currencies[v.item] then
+                            if PW and PW.currencies and PW.currencies[v.item] then
                                 rewarded[v.key].method = "currency"
                                 -- this is a currency item
                                 PW:adjustWallet(p, {
