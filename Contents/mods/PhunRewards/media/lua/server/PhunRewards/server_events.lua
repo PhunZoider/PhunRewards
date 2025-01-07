@@ -11,7 +11,7 @@ local emptyServerCalculate = false
 Events.OnTickEvenPaused.Add(function()
 
     if emptyServerCalculate == true and emptyServerTickCount > 100 then
-        if getOnlinePlayers():size() == 0 then
+        if PR:onlinePlayers():size() == 0 then
             emptyServerCalculate = false
             PR:savePlayers()
         end
@@ -23,7 +23,7 @@ Events.OnTickEvenPaused.Add(function()
 end)
 
 Events.EveryTenMinutes.Add(function()
-    emptyServerCalculate = getOnlinePlayers():size() > 0
+    emptyServerCalculate = PR:onlinePlayers():size() > 0
 end)
 
 Events.OnClientCommand.Add(function(module, command, playerObj, arguments)

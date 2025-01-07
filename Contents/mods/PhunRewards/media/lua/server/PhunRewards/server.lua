@@ -168,10 +168,10 @@ end
 function PR:doHourly()
 
     local rewards = {"current", "total", "charStats"}
+    local onlinePlayers = self:onlinePlayers()
+    for i = 1, onlinePlayers:size() do
 
-    for i = 1, getOnlinePlayers():size() do
-
-        local p = getOnlinePlayers():get(i - 1)
+        local p = onlinePlayers:get(i - 1)
         local pstats = PS:getData(p)
 
         local rewarded = PR:getPlayerData(p)
