@@ -62,6 +62,24 @@ function Core:onlinePlayers(all)
     return onlinePlayers;
 end
 
+local climateManager
+function Core:setNightTime()
+    if not climateManager then
+        climateManager = getClimateManager()
+    end
+    -- Get the current season to calculate when is day time or night time
+    if climateManager then
+        local season = climateManager:getSeason()
+        if season then
+
+            local time = getGameTime():getTimeOfDay()
+            local dawn = season:getDawn()
+            local dusk = season:getDusk()
+            self.isNight = time < dawn or time > dusk
+        end
+    end
+end
+
 function Core:printTable(t, indent)
     indent = indent or ""
     for key, value in pairs(t or {}) do
@@ -79,8 +97,10 @@ function Core:ini()
         print("PhunRewards: Inied")
         self.inied = true
         self.players = ModData.getOrCreate(self.name .. "_Players")
-        if not isClient() then
+        if isServer() then
             self:reload()
+        else
+            self:setNightTime()
         end
         triggerEvent(self.events.OnPhunRewardsInied)
     end

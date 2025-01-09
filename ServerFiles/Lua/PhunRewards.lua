@@ -53,14 +53,17 @@ return {
             items = {{
                 item = "PhunMart.SilverDollar",
                 chance = 30,
-                qty = 1
+                qty = {
+                    min = 1,
+                    max = 2
+                }
             }, {
                 item = "PhunMart.CheeseToken",
                 chance = 10,
-                qty = 1,
-                zones = 1
+                qty = 1
             }, {
                 item = "PhunSpawn.Vent Clue",
+                night = 0,
                 chance = 5,
                 qty = 1
             }}

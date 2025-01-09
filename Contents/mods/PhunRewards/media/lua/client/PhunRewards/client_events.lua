@@ -20,6 +20,10 @@ Events.OnServerCommand.Add(function(module, command, arguments)
     end
 end)
 
+Events.EveryTenMinutes.Add(function()
+    PR:setNightTime()
+end)
+
 Events.OnZombieDead.Add(function(zed)
     PR:checkZedSpecialDrops(zed)
 end);

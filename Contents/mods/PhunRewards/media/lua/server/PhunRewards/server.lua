@@ -62,6 +62,7 @@ local function formatDrop(data)
     local result = {}
     result.item = data.item
     result.chance = (data.chance or 1) * 100
+    result.night = data.night or 1.5
     result.qty = {
         min = 1,
         max = 1
@@ -156,6 +157,7 @@ function PR:reload()
     print("PhunRewards: Reloading")
     local data = files:loadTable("PhunRewards.lua")
     local distributions = buildDistributions(data)
+    self:debug("PhunRewards: Reloading", distributions)
     if distributions then
         PR.distributions = distributions
     end

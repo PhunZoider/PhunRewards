@@ -55,13 +55,19 @@ function PR:checkZedSpecialDrops(zombie)
                     local radIncrease = 0
                     local min = v.qty.min
                     local max = v.qty.max
-                    if rads then
+                    if rads and rads > 0 then
                         radIncrease = math.floor((v.qty.min + (rads / 100) * v.qty.min) + .5)
                         min = min + radIncrease
                         max = max + radIncrease
                     end
-                    print("min=" .. min .. ", max = " .. max .. " radIncrease: " .. radIncrease)
-                    local qty = ZombRand(min, max)
+                    if self.isNight and v.nightMultiplier ~= 0 then
+                        local increaseAmount = v.nightMultiplier or 1.5
+                        local increase = math.floor((v.qty.min + (increaseAmount * v.qty.min)) + .5)
+                        min = min + increase
+                        max = max + increase
+                    end
+                    -- print("min=" .. min .. ", max = " .. max .. " radIncrease: " .. radIncrease)
+                    local qty = ZombRand(min, (max + 1))
                     zombie:getInventory():AddItems(v.item, qty)
                 end
             end
