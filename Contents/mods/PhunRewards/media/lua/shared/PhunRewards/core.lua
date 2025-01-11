@@ -74,7 +74,7 @@ function Core:setNightTime()
 
             local time = getGameTime():getTimeOfDay()
             local dawn = season:getDawn()
-            local dusk = season:getDusk()
+            local dusk = season:getDusk() + 2
             self.isNight = time < dawn or time > dusk
         end
     end

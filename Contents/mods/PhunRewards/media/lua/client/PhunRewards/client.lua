@@ -61,7 +61,7 @@ function PR:checkZedSpecialDrops(zombie)
                         max = max + radIncrease
                     end
                     if self.isNight and v.nightMultiplier ~= 0 then
-                        local increaseAmount = v.nightMultiplier or 1.5
+                        local increaseAmount = v.nightMultiplier or 1.3
                         local increase = math.floor((v.qty.min + (increaseAmount * v.qty.min)) + .5)
                         min = min + increase
                         max = max + increase
