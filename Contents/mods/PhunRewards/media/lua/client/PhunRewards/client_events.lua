@@ -20,6 +20,12 @@ Events.OnServerCommand.Add(function(module, command, arguments)
     end
 end)
 
+Events.OnCreatePlayer.Add(function(player)
+    if PR.isLocal then
+        PR:setNightTime()
+    end
+end)
+
 Events.EveryTenMinutes.Add(function()
     PR:setNightTime()
 end)

@@ -18,7 +18,7 @@ PhunRewards = {
 }
 
 local Core = PhunRewards
-
+Core.isLocal = not isClient() and not isServer() and not isCoopHost()
 for _, event in pairs(Core.events) do
     if not Events[event] then
         LuaEventManager.AddEvent(event)
@@ -68,10 +68,9 @@ function Core:setNightTime()
         climateManager = getClimateManager()
     end
     -- Get the current season to calculate when is day time or night time
-    if climateManager then
+    if climateManager and climateManager.getSeason then
         local season = climateManager:getSeason()
-        if season then
-
+        if season and season.getDawn then
             local time = getGameTime():getTimeOfDay()
             local dawn = season:getDawn()
             local dusk = season:getDusk() + 2

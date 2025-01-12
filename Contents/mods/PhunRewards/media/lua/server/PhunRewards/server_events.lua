@@ -33,6 +33,10 @@ Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     end
 end)
 
+Events.OnServerStarted.Add(function()
+    PR:setNightTime()
+end)
+
 Events.OnInitGlobalModData.Add(function()
     PR:ini()
 end)
