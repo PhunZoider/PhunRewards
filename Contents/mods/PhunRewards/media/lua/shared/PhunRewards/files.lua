@@ -230,4 +230,11 @@ function tools:appendToFile(filename, line, createIfNotExist)
     fileWriterObj:close()
 end
 
+if not tools.inied then
+    tools.inied = true
+    Events.EveryTenMinutes.Add(function()
+        tools:doLogs()
+    end)
+end
+
 return tools
