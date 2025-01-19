@@ -8,7 +8,9 @@ local PZ = PhunZones
 local function setup()
     Events.OnTick.Remove(setup)
     PR:ini()
-    sendClientCommand(PR.name, PR.commands.requestData, {})
+    if isClient() then
+        sendClientCommand(PR.name, PR.commands.requestData, {})
+    end
 end
 
 Events.OnTick.Add(setup)

@@ -16,9 +16,7 @@ Commands[PR.commands.addReward] = function(arguments)
 end
 
 Commands[PR.commands.requestData] = function(arguments)
-    PR.distributions = {
-        drops = arguments.data or {}
-    }
+    PR.distributions = arguments.data
     local history = PR:getPlayerData(getSpecificPlayer(arguments.playerIndex))
     history = arguments.history or {}
 end

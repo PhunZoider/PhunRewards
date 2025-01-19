@@ -7,7 +7,7 @@ local Commands = {}
 Commands[PR.commands.requestData] = function(playerObj)
     sendServerCommand(playerObj, PR.name, PR.commands.requestData, {
         playerIndex = playerObj:getPlayerNum(),
-        data = PR.distributions.drops,
+        data = PR.distributions,
         history = PR:getPlayerData(playerObj)
     })
 end

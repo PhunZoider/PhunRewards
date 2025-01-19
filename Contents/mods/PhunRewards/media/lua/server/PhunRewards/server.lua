@@ -156,11 +156,8 @@ end
 function PR:reload()
     print("PhunRewards: Reloading")
     local data = files:loadTable("PhunRewards.lua")
-    local distributions = buildDistributions(data)
-    self:debug("PhunRewards: Reloading", distributions)
-    if distributions then
-        PR.distributions = distributions
-    end
+    self.distributions = buildDistributions(data)
+    self:debug("PhunRewards: Reloading", self.distributions)
 end
 
 function PR:export()
@@ -169,8 +166,13 @@ end
 
 function PR:doHourly()
 
-    local rewards = {"current", "total", "charStats"}
-    local onlinePlayers = self:onlinePlayers()
+    local rewards = {"current", "total"}
+    local onlinePlayers = self:onlinePlayers(true)
+    if not self.distributions or not self.distributions.total then
+        print("PhunRewards: No distributions, reloading")
+        self:reload()
+    end
+    -- self:debug("PhunRewards: doHourly", tostring(onlinePlayers:size()), "dist", self.distributions, "---")
     for i = 1, onlinePlayers:size() do
 
         local p = onlinePlayers:get(i - 1)
@@ -179,7 +181,8 @@ function PR:doHourly()
         local rewarded = PR:getPlayerData(p)
 
         for _, rv in pairs(rewards) do
-            for _, v in pairs(PR.distributions[rv] or {}) do
+            local dist = self.distributions[rv] or {}
+            for _, v in pairs(dist) do
 
                 if not rewarded[v.key] or v.repeating then
 
@@ -205,7 +208,8 @@ function PR:doHourly()
                             end
                         end
                     else
-                        if (pstats[rv].hours or 0) >= v.hours and (pstats[rv].kills or 0) >= (v.kills or 0) then
+                        local stats = pstats[rv] or {}
+                        if (stats.hours or 0) >= v.hours and (stats.kills or 0) >= (v.kills or 0) then
 
                             rewarded[v.key] = {
                                 hours = pstats[rv].hours,
@@ -235,6 +239,9 @@ function PR:doHourly()
 
                         end
                     end
+                else
+                    -- already rewarded
+                    print("PhunRewards: Already rewarded " .. tostring(p:getUsername()) .. " " .. tostring(v.key))
                 end
             end
         end

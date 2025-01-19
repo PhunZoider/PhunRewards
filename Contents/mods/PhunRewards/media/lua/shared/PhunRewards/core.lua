@@ -96,11 +96,12 @@ function Core:ini()
         print("PhunRewards: Inied")
         self.inied = true
         self.players = ModData.getOrCreate(self.name .. "_Players")
-        if isServer() then
+        if not isClient() then
             self:reload()
-        else
-            self:setNightTime()
         end
+
+        self:setNightTime()
+
         triggerEvent(self.events.OnPhunRewardsInied)
     end
 

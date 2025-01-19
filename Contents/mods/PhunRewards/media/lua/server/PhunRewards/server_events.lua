@@ -43,11 +43,15 @@ end)
 
 if PS then
     Events[PS.events.OnReady].Add(function()
+        print("PhunRewards: PhunStats ready")
         Events.EveryHours.Add(function()
+            print("PhunRewards: Hourly event")
             PR:doHourly()
         end)
 
     end)
+else
+    print("PhunRewards Error: PhunStats not found")
 end
 
 Events.EveryTenMinutes.Add(function()
