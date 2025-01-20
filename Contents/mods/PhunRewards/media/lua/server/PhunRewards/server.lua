@@ -154,10 +154,8 @@ local function buildDistributions(data)
 end
 
 function PR:reload()
-    print("PhunRewards: Reloading")
     local data = files:loadTable("PhunRewards.lua")
     self.distributions = buildDistributions(data)
-    self:debug("PhunRewards: Reloading", self.distributions)
 end
 
 function PR:export()
@@ -241,7 +239,7 @@ function PR:doHourly()
                     end
                 else
                     -- already rewarded
-                    print("PhunRewards: Already rewarded " .. tostring(p:getUsername()) .. " " .. tostring(v.key))
+                    -- print("PhunRewards: Already rewarded " .. tostring(p:getUsername()) .. " " .. tostring(v.key))
                 end
             end
         end

@@ -28,7 +28,6 @@ end)
 
 Events.OnClientCommand.Add(function(module, command, playerObj, arguments)
     if module == PR.name and Commands[command] then
-        print("PhunRewards: Received command ", command)
         Commands[command](playerObj, arguments)
     end
 end)
@@ -45,7 +44,6 @@ if PS then
     Events[PS.events.OnReady].Add(function()
         print("PhunRewards: PhunStats ready")
         Events.EveryHours.Add(function()
-            print("PhunRewards: Hourly event")
             PR:doHourly()
         end)
 
