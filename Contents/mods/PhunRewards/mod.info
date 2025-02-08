@@ -3,4 +3,5 @@ name=PhunRewards
 id=phunrewards
 authors=UburGeek
 description=Give stuff to players at different intervals
+require=phunlib
 poster=poster.png

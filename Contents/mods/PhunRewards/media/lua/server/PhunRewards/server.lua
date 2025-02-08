@@ -1,7 +1,10 @@
 if isClient() then
     return
 end
-local files = require "PhunRewards/files"
+require "PhunLib/core"
+local PL = PhunLib
+local files = PL.file
+
 local PR = PhunRewards
 local PS = PhunStats
 local PW = PhunWallet
@@ -154,12 +157,12 @@ local function buildDistributions(data)
 end
 
 function PR:reload()
-    local data = files:loadTable("PhunRewards.lua")
+    local data = files.loadTable("PhunRewards.lua")
     self.distributions = buildDistributions(data)
 end
 
 function PR:export()
-    files:saveTable("PhunRewards.lua", PR.currencies)
+    files.saveTable("PhunRewards.lua", PR.currencies)
 end
 
 function PR:doHourly()
@@ -198,7 +201,7 @@ function PR:doHourly()
                                     method = "trait"
                                 }
                                 PR.playersModified = getTimestamp()
-                                files:addLogEntry("Phun.log", "PhunRewards:" .. v.key, p:getUsername(), v.trait, 1)
+                                files.log("PhunRewards:" .. v.key, p:getUsername(), v.trait, 1)
                                 sendServerCommand(p, PR.name, PR.commands.addReward, {
                                     playerIndex = p:getPlayerNum(),
                                     trait = v.trait
@@ -218,7 +221,7 @@ function PR:doHourly()
                             }
 
                             local qty = ZombRand(v.qty.min, v.qty.max)
-                            files:addLogEntry("Phun.log", "PhunRewards:" .. v.key, p:getUsername(), v.item, qty)
+                            files.log("PhunRewards:" .. v.key, p:getUsername(), v.item, qty)
                             PR.playersModified = getTimestamp()
 
                             if PW and PW.currencies and PW.currencies[v.item] then
@@ -248,7 +251,7 @@ end
 
 function PR:savePlayers()
     if PR.playersModified > PR.playersSaved then
-        files:saveTable(PR.name .. "_Players.lua", {
+        files.saveTable(PR.name .. "_Players.lua", {
             data = PR.players
         })
         PR.playersSaved = getTimestamp()
